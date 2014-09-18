@@ -7,6 +7,7 @@
   :title "Vector Intro"
   :size [g/sketch-size g/sketch-size]
   :setup g/setup
+  :mouse-clicked g/mouse-clicked
   :update g/update
   :draw g/draw
   :middleware [m/fun-mode])

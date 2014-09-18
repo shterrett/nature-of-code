@@ -13,6 +13,11 @@
     (* -1 vel)
     (+ vel accel)))
 
+(defn mouse-clicked [{ gravity :gravity ball :ball } event]
+  (if (= gravity 1)
+    { :gravity 0 :ball ball }
+    { :gravity 1 :ball ball }))
+
 (defn update [{gravity :gravity {:keys [x y dx dy]} :ball}]
   (let [new-y (+ y dy)
         new-x (+ x dx)]
