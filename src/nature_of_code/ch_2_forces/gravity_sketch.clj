@@ -3,8 +3,8 @@
             [quil.middleware :as m]
             [nature_of_code.ch_2_forces.gravity :as g]))
 
-(q/defsketch vector_intro
-  :title "Vector Intro"
+(q/defsketch gravity
+  :title "Gravity"
   :size [g/sketch-size g/sketch-size]
   :setup g/setup
   :mouse-clicked g/mouse-clicked
