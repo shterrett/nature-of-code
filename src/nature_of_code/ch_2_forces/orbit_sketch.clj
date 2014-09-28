@@ -3,8 +3,8 @@
             [quil.middleware :as m]
             [nature_of_code.ch_2_forces.orbit :as o]))
 
-(q/defsketch gravity
-  :title "Gravity"
+(q/defsketch orbit
+  :title "Orbit"
   :size [o/sketch-size o/sketch-size]
   :setup o/setup
   :update o/update
