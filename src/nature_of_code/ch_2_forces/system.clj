@@ -9,27 +9,27 @@
    {:x 100 :y 75 :dx 3 :dy 2 :r 15 :c { :r 200 :g 200 :b 200}},
    {:x 250 :y 250 :dx 0 :dy 0 :r 30 :c {:r 51 :g 224 :b 31}}])
 
-(defn update-planet [{:keys [x y dx dy r c] :as this-body}
+(defn update-planet [{:keys [x y dx dy r] :as this-body}
                      other-body]
-  (if (o/ejected? x y sketch-size)
-    {}
-    (let [d (o/distance this-body other-body)]
-      (if (< (:d d) 1)
-        this-body
-        (let [F (o/decomposed-force (o/force-mag this-body other-body (:d d))
-                                    (o/theta (:xd d) (:yd d))
-                                    d)
-              ddx (o/acceleration (:fx F) (:r this-body))
-              ddy (o/acceleration (:fy F) (:r this-body))]
-            {:x (+ x dx)
-             :y (+ y dy)
-             :dx (+ dx ddx)
-             :dy (+ dy ddy)
-             :r r
-             :c c})))))
+  (let [d (o/distance this-body other-body)]
+    (if (< (:d d) 1)
+      this-body
+      (let [F (o/decomposed-force (o/force-mag this-body other-body (:d d))
+                                  (o/theta (:xd d) (:yd d))
+                                  d)
+            ddx (o/acceleration (:fx F) r)
+            ddy (o/acceleration (:fy F) r)]
+          (assoc this-body
+                 :dx (+ dx ddx)
+                 :dy (+ dy ddy))))))
+
+(defn move-body [{:keys [x y dx dy] :as body}]
+  (assoc body
+         :x (+ x dx)
+         :y (+ y dy)))
 
 (defn accumulate-forces [this-body bodies]
-  (reduce update-planet bodies))
+  (move-body (reduce update-planet bodies)))
 
 (defn update [state]
   (map #(accumulate-forces %1 state) state))
