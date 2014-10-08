@@ -1,7 +1,7 @@
-(ns nature_of_code.ch_3_oscillation.sine_sketch
+(ns nature_of_code.ch_3_oscillation.sine_2_sketch
   (:require [quil.core :as q]
             [quil.middleware :as m]
-            [nature_of_code.ch_3_oscillation.sine :as s]))
+            [nature_of_code.ch_3_oscillation.sine_2 :as s]))
 
 (q/defsketch sine
   :title "Sine"
@@ -12,4 +12,4 @@
   :middleware [m/fun-mode])
 
 (defn reload []
-  (use :reload 'nature_of_code.ch_3_oscillation.sine))
+  (use :reload 'nature_of_code.ch_3_oscillation.sine_2))

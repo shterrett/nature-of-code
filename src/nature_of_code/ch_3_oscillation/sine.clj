@@ -17,5 +17,10 @@
   (doseq [step (range 0 sketch-size 10)]
     (let [x (* (/ q/TWO-PI 500) step)
           y (+ 250 (* 250 (Math/sin (+ x disp))))]
-      (q/fill 0 0 0)
-      (q/ellipse step y 10 10))))
+      (if (= step 250)
+        (do
+          (q/fill 255 0 0)
+          (q/ellipse step y 25 25))
+        (do
+          (q/fill 0 0 0)
+          (q/ellipse step y 10 10))))))
