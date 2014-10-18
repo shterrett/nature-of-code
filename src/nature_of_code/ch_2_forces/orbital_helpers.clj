@@ -31,8 +31,12 @@
   (Math/sin angle))
 
 (defn decomposed-force [fmag angle {xd :xd yd :yd}]
-  (let [x-dir (/ xd (Math/abs xd))
-        y-dir (/ yd (Math/abs yd))
+  (defn calc-dir [distance]
+    (if (>= distance 0)
+      1
+      -1))
+  (let [x-dir (calc-dir xd)
+        y-dir (calc-dir yd)
         force-vector (fn [trig dir]
                        (* fmag
                           dir
@@ -42,3 +46,6 @@
 
 (defn acceleration [f m]
   (/ f m))
+
+(defn same-body? [a b]
+  (every? #(= (%1 a) (%1 b)) [:x :y :r]))
