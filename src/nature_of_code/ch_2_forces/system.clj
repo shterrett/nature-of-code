@@ -12,7 +12,7 @@
 (defn update-planet [{:keys [x y dx dy r] :as this-body}
                      other-body]
   (let [d (o/distance this-body other-body)]
-    (if (< (:d d) 1)
+    (if (o/same-body? this-body other-body)
       this-body
       (let [F (o/decomposed-force (o/force-mag this-body other-body (:d d))
                                   (o/theta (:xd d) (:yd d))
@@ -29,7 +29,7 @@
          :y (+ y dy)))
 
 (defn accumulate-forces [this-body bodies]
-  (move-body (reduce update-planet bodies)))
+  (move-body (reduce update-planet this-body bodies)))
 
 (defn update [state]
   (map #(accumulate-forces %1 state) state))

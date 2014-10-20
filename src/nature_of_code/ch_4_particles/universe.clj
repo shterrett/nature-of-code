@@ -4,8 +4,8 @@
 
 (def sketch-size 800)
 
-(def start (range (- (/ sketch-size 2) 15)
-                  (+ (/ sketch-size 2) 15)))
+(def start (range (- (/ sketch-size 2) 10)
+                  (+ (/ sketch-size 2) 10)))
 
 (def size-distribution (mapcat #(range 10 %1 1) (range 10 50 10)))
 
@@ -17,12 +17,12 @@
    :r (rand-nth size-distribution)})
 
 (defn force-mag [{mA :r} {mB :r} d]
-  (if (< d (+ 100 mA mB))
-    (* -10 mA mB)
-    (* 0.0000001 (/ (* mA mB) (Math/pow d 2)))))
+  (if (< d (+ mA mB))
+    (* -1 mA mB)
+    (* 1 (/ (* mA mB) (Math/pow d 2)))))
 
 (defn reset []
-  (q/frame-rate 3)
+  (q/frame-rate 10)
   (repeatedly 20 spawn-galaxy))
 
 (defn setup []
@@ -50,7 +50,7 @@
          :y (+ y dy)))
 
 (defn accumulate-forces [this-body bodies]
-  (move-body (reduce update-galaxy bodies)))
+  (move-body (reduce update-galaxy this-body bodies)))
 
 (defn update [state]
   (if (empty? state)
