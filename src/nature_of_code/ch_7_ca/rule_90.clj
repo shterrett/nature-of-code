@@ -1,7 +1,8 @@
 (ns nature_of_code.ch_7_ca.rule_90
   (:require [quil.core :as q])
   (:require [clojure.string :refer [join]])
-  (:require [clojure.data.finger-tree :as ft]))
+  (:require [clojure.data.finger-tree :as ft])
+  (:require [nature_of_code.ch_7_ca.collection_manipulations]))
 
 (def sketch-size 80)
 
@@ -13,14 +14,6 @@
               "101" 0
               "110" 1
               "111" 0})
-
-(defn with-index [cells]
-  (map vector cells (range)))
-
-(defn wrap-ends [cells]
-  (-> cells
-    (conj (first cells))
-    (ft/conjl (last cells))))
 
 (defn setup []
   {:cells (ft/double-list 0 0 0 0 1 0 0 0 0)
