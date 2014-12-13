@@ -23,7 +23,7 @@
   (sort-by :score > pool-with-score))
 
 (defn candidate-indicies [pool]
-  (mapcat #(range 0 %1 1) (range 10 (+ 1 (count pool)) 10)))
+  (mapcat #(range 0 %1 1) (range 10 (+ 1 (count pool)) 20)))
 
 (defn done? [initial target]
   (some #(= target %1) initial))
@@ -45,9 +45,10 @@
 (defn mutate [pool target]
   (map (fn [candidate]
          (if (> 2 (rand-int 101))
-                (assoc (apply vector candidate)
-                       (rand-int (count candidate))
-                       (rand-int (count target)))
+           (let [index (rand-int (count target))]
+              (assoc (apply vector candidate)
+                     index
+                     (nth target index)))
            candidate))
        pool))
 
